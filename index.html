@@ -9,23 +9,46 @@
       @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
       
       :root {
-        --color-bg: #09090b; /* Zinc 950 */
-        --color-panel: #18181b; /* Zinc 900 */
-        --color-text: #e4e4e7; /* Zinc 200 */
-        --color-border: #3f3f46; /* Zinc 700 */
-        --color-accent: #facc15; /* Yellow 400 */
+        /* Default Dark Mode (Zinc-based) */
+        --bg-app: #09090b;       /* zinc-950 */
+        --bg-panel: #18181b;     /* zinc-900 */
+        --bg-panel-trans: rgba(24, 24, 27, 0.8);
+        --border-color: #3f3f46; /* zinc-700 */
+        --text-main: #ffffff;    /* white */
+        --text-muted: #a1a1aa;   /* zinc-400 */
+        --accent: #facc15;       /* yellow-400 */
+        --accent-border: #facc15;
+        --highlight-bg: #ffffff;
+        --highlight-text: #000000;
+        --input-bg: #09090b;
+      }
+      
+      body.light-mode {
+        /* Light Mode (High Contrast / Print Friendly) */
+        --bg-app: #ffffff;
+        --bg-panel: #f4f4f5;     /* zinc-100 */
+        --bg-panel-trans: rgba(244, 244, 245, 0.9);
+        --border-color: #000000; /* Black borders */
+        --text-main: #000000;
+        --text-muted: #52525b;   /* zinc-600 */
+        --accent: #000000;       /* Black accent for stark contrast */
+        --accent-border: #000000;
+        --highlight-bg: #000000;
+        --highlight-text: #ffffff;
+        --input-bg: #ffffff;
       }
       
       body {
         font-family: 'JetBrains Mono', 'Noto Sans SC', monospace;
-        background-color: var(--color-bg);
-        color: var(--color-text);
+        background-color: var(--bg-app);
+        color: var(--text-main);
         overflow-x: hidden;
+        transition: background-color 0.3s, color 0.3s;
       }
       
-      /* Retro Scanline Effect */
+      /* Retro Scanline Effect - Only in Dark Mode */
       
-      .crt::before {
+      body:not(.light-mode).crt::before {
         content: " ";
         display: block;
         position: absolute;
@@ -44,16 +67,16 @@
       
       ::-webkit-scrollbar {
         width: 10px;
-        background: var(--color-bg);
+        background: var(--bg-app);
       }
       
       ::-webkit-scrollbar-thumb {
-        background: var(--color-border);
-        border: 1px solid var(--color-bg);
+        background: var(--border-color);
+        border: 1px solid var(--bg-app);
       }
       
       ::-webkit-scrollbar-thumb:hover {
-        background: var(--color-accent);
+        background: var(--accent);
       }
       
       input[type="number"]::-webkit-inner-spin-button,
@@ -63,14 +86,14 @@
       }
       
       .retro-border {
-        border: 1px solid var(--color-border);
+        border: 1px solid var(--border-color);
         box-shadow: 0 0 0 1px transparent; 
         transition: all 0.2s;
       }
       
       .retro-border:focus-within, .retro-border:hover {
-        border-color: var(--color-accent);
-        box-shadow: 0 0 5px rgba(250, 204, 21, 0.2);
+        border-color: var(--accent);
+        box-shadow: 0 0 5px rgba(var(--accent), 0.2); /* Note: simplified for var usage */
       }
     </style>
 
@@ -88,7 +111,7 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="./assets/index-DzDIVxgM.js"></script>
+  <script type="module" crossorigin src="./assets/index-DXsrHVlt.js"></script>
 </head>
   <body class="crt min-h-screen relative">
     <div id="root" class="relative z-10"></div>
